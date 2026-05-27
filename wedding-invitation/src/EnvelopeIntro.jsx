@@ -47,9 +47,7 @@ export default function EnvelopeIntro({ onOpen, onOpenStart }) {
 
           <div className="env-letter">
             <span className="env-letter-tag">You&apos;re invited</span>
-            <p className="env-letter-names">Justin</p>
-            <span className="env-letter-amp">&amp;</span>
-            <p className="env-letter-names">Cristine</p>
+            <p className="env-letter-couple">Justin &amp; Cristine</p>
             <p className="env-letter-date">June 6, 2026 · 8:00 AM</p>
           </div>
 
@@ -78,14 +76,17 @@ export default function EnvelopeIntro({ onOpen, onOpenStart }) {
               aria-label="Break wax seal to open invitation"
               disabled={opening}
             >
+              <span className="wax-seal-shine" aria-hidden />
               <span className="wax-seal-text">J &amp; C</span>
             </button>
           </div>
         </div>
       </div>
 
+      <div className="envelope-glow" aria-hidden />
+
       <div className="envelope-cta">
-        <p className="envelope-hint">A special delivery for you</p>
+        <p className="envelope-hint">Break the seal · A special delivery for you</p>
         <button
           type="button"
           className="btn-open-envelope"

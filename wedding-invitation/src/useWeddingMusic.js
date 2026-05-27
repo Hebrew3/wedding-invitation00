@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from "react";
-import weddingSong from "../music/Tahanan - El Manu  Clyde Pianist (Senti Piano Cover).mp3";
+import weddingSong from "../music/Palagi - Tj Monterde  Violin Cover by BOJO.mp3";
 
 const DEFAULT_VOLUME = 0.42;
 

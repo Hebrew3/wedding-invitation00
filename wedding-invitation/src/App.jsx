@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import EnvelopeIntro from "./EnvelopeIntro";
 import MusicToggle from "./MusicToggle";
 import { useWeddingMusic } from "./useWeddingMusic";
+import Countdown from "./Countdown";
+import FloatingHearts from "./FloatingHearts";
+import "./App.css";
 
 // Import gallery images
 import img1 from "./assets/wedding/IRN06176.jpg";
@@ -24,20 +27,6 @@ import receptionLocation from "./assets/asset/Reception.png";
 
 export default function App() {
 
-  const calculateTimeLeft = () => {
-    const weddingDate = new Date("June 6, 2026 08:00:00").getTime();
-    const now = new Date().getTime();
-    const difference = weddingDate - now;
-
-    return {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-    };
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const [isOpened, setIsOpened] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,19 +38,19 @@ export default function App() {
   ];
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
     const slideTimer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % galleryImages.length);
     }, 4000);
 
     return () => {
-      clearInterval(timer);
       clearInterval(slideTimer);
     };
   }, [galleryImages.length]);
+
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", isMenuOpen);
+    return () => document.body.classList.remove("nav-open");
+  }, [isMenuOpen]);
 
   // Gallery slide functions
   const goToSlide = (index) => {
@@ -121,18 +110,19 @@ export default function App() {
       { name: "Mr. Regie Dimaisip" },
       { name: "Ms. Ma. Jialen Clavillas" },
       { name: "Ms. Alleen Dimaisip" },
+      { name: "Mrs. Aileen Dimaisip" },
     ],
     toBindUsTogether: [
-      { name: "Mr. Paul Nino Manalese" },
+      { name: "Mr. Paul Niño Manalese" },
       { name: "Mr. Louie Cabungcal" },
-      { name: "Ms. Judi De Los Reyes" },
+      { name: "Ms. Jubi De Los Reyes" },
       { name: "Ms. Michelle Botial" },
     ],
   };
 
   const sponsors = {
     groomParents: ["Mr. Ogie Dimaisip", "Mrs. Aileen Dimaisip"],
-    brideParents: ["Mr. Melion Apas", "Mrs. Anna Marie Garcia"],
+    brideParents: ["Mr. Meljon Apas", "Mrs. Anna Marie Garcia"],
     principalSponsors: [
       "Mr. Jayar Basco",
       "Mr. Randy Manalo",
@@ -142,12 +132,12 @@ export default function App() {
       "Mr. Melencio Hernandez",
       "Mr. Rolando Cabral",
       "Mr. Ranny Caringal",
-      "Mr. Cesar Basaquing",
+      "Mr. Cesar Bascuguin",
       "Mr. Rolando Rivera",
       "Mr. Estelito Lopez",
       "Mr. Florentino Dela Cuesta",
       "Mr. Jayson Dinamarca",
-      "Mrs. Michelle Basco",
+      "Mrs. Michelle Bascuguin",
       "Mrs. Melissa Manalo",
       "Mrs. Janice Escueta",
       "Mrs. Mary Ann Zarra",
@@ -161,7 +151,7 @@ export default function App() {
       "Mrs. Marita Dela Cuesta",
       "Mrs. Lovely Ann Dinamarca",
       "Mrs. Marissa Granada",
-      "Mrs. Marlineeth Cabungcal",
+      "Mrs. Marlineth Cabungcal",
       "Ms. Jennifer Pernia",
     ],
   };
@@ -173,7 +163,7 @@ export default function App() {
     bibleBearers: ["Mr. Jeiden Maranan"],
     flowerGirls: [
       "Ms. Althea Iroy",
-      "Ms. Virberry Basco",
+      "Ms. Viberry Basco",
       "Ms. Faith Soguilon",
       "Ms. Jaycee Labrador",
       "Ms. Phia Paula Manalo",
@@ -190,223 +180,104 @@ export default function App() {
   }
 
   return (
-    <div className="bg-[#f7f3f3] text-[#7b001c] main-enter">
+    <div className="site bg-[#f7f3f3] text-[#7b001c] main-enter">
+      <FloatingHearts />
       <MusicToggle
         isPlaying={isPlaying}
         isMuted={isMuted}
         onToggle={toggleMute}
       />
 
-        {/* NAVIGATION BAR */}
-        <nav className="fixed top-0 left-0 right-0 bg-[#7b001c] text-white shadow-lg z-40">
-          <div className="max-w-6xl mx-auto px-4 md:px-5 py-3 md:py-4 flex items-center justify-between">
-            <div className="text-xl md:text-2xl font-bold" style={{ fontFamily: "Playfair Display" }}>
-              J & C
-            </div>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex gap-6 md:gap-8 items-center">
-              <a href="#home" className="hover:text-[#f3c4c4] transition-colors text-xs md:text-sm">
-                Home
+        <nav className="site-nav fixed top-0 left-0 right-0 bg-[#7b001c] text-white shadow-lg z-40">
+          <div className="nav-inner">
+            <a href="#home" className="nav-logo text-white no-underline">
+              J &amp; C
+            </a>
+
+            <div className="nav-links">
+              <a href="#home" className="nav-link text-white">Home</a>
+              <a href="#hero" className="nav-link nav-link-feature text-white">
+                <span className="nav-label-long">The wedding feature</span>
+                <span className="nav-label-short">Wedding</span>
               </a>
-              <a href="#hero" className="hover:text-[#f3c4c4] transition-colors text-xs md:text-sm">
-                The wedding feature
-              </a>
-              <a href="#gallery" className="hover:text-[#f3c4c4] transition-colors text-xs md:text-sm">
-                Gallery
-              </a>
-              <a href="#home" className="hover:text-[#f3c4c4] transition-colors text-xs md:text-sm">
-                Countdown
-              </a>
-              <a href="#details" className="hover:text-[#f3c4c4] transition-colors text-xs md:text-sm">
-                Details
-              </a>
-              <a 
-                href="#film" 
-                className="px-4 md:px-6 py-2 border-2 border-white rounded-full hover:bg-white hover:text-[#7b001c] transition-colors text-xs md:text-sm"
-              >
-                VIDEO
-              </a>
+              <a href="#gallery" className="nav-link text-white">Gallery</a>
+              <a href="#home" className="nav-link text-white">Countdown</a>
+              <a href="#details" className="nav-link text-white">Details</a>
+              <a href="#film" className="nav-link nav-link-video text-white">VIDEO</a>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
+              type="button"
+              className="nav-toggle md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white text-2xl focus:outline-none"
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              ☰
+              {isMenuOpen ? "✕" : "☰"}
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden bg-[#5a0015] backdrop-blur-md px-4 py-4 space-y-3 border-t border-[#d98a99]"
-              style={{
-                backgroundColor: "rgba(90, 0, 21, 0.95)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-              }}
-            >
-              <a 
-                href="#home" 
-                className="block text-white hover:text-[#f3c4c4] transition-colors text-sm py-2 px-3 rounded hover:bg-[#7b001c]" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </a>
-              <a 
-                href="#hero" 
-                className="block text-white hover:text-[#f3c4c4] transition-colors text-sm py-2 px-3 rounded hover:bg-[#7b001c]" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                The wedding feature
-              </a>
-              <a 
-                href="#gallery" 
-                className="block text-white hover:text-[#f3c4c4] transition-colors text-sm py-2 px-3 rounded hover:bg-[#7b001c]" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Gallery
-              </a>
-              <a 
-                href="#home" 
-                className="block text-white hover:text-[#f3c4c4] transition-colors text-sm py-2 px-3 rounded hover:bg-[#7b001c]" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Countdown
-              </a>
-              <a 
-                href="#details" 
-                className="block text-white hover:text-[#f3c4c4] transition-colors text-sm py-2 px-3 rounded hover:bg-[#7b001c]" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Details
-              </a>
-              <a 
-                href="#film" 
-                className="block px-4 py-2 border-2 border-white rounded-full text-white hover:bg-white hover:text-[#7b001c] transition-colors text-sm text-center" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                VIDEO
-              </a>
+            <div className="nav-drawer md:hidden">
+              <a href="#home" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Home</a>
+              <a href="#hero" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>The wedding feature</a>
+              <a href="#gallery" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Gallery</a>
+              <a href="#home" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Countdown</a>
+              <a href="#details" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Details</a>
+              <a href="#film" className="nav-drawer-link nav-drawer-video text-white" onClick={() => setIsMenuOpen(false)}>VIDEO</a>
             </div>
           )}
         </nav>
 
-        {/* HOME SECTION */}
         <section
           id="home"
-          className="min-h-screen flex items-center justify-center px-4 md:px-5 py-10 pt-20 md:pt-24 bg-cover bg-center"
+          className="section-home section-block text-white text-center"
           style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${homeHero})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${homeHero})`,
           }}
         >
-          <div className="text-center z-10 w-full">
-            <p className="text-xs md:text-sm tracking-[2px] md:tracking-[3px] text-white mb-3 md:mb-4" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}>
-              COUNTDOWN TO JUNE 6, 2026
+          <div className="z-10 w-full max-w-4xl mx-auto">
+            <p className="home-eyebrow uppercase text-white mb-3 md:mb-4">
+              Countdown to June 6, 2026
             </p>
-            <h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-3 md:mb-4 leading-tight"
-              style={{ fontFamily: "Playfair Display", textShadow: "3px 3px 10px rgba(0,0,0,0.5)" }}
-            >
-              JUSTIN & CRISTINE
+            <h1 className="home-title text-white mb-3 md:mb-4">
+              JUSTIN &amp; CRISTINE
             </h1>
-            <p
-              className="text-lg md:text-2xl lg:text-3xl text-white mb-6 md:mb-8"
-              style={{ fontFamily: "Great Vibes", textShadow: "2px 2px 6px rgba(0,0,0,0.5)" }}
-            >
+            <p className="home-tagline text-white mb-6 md:mb-8">
               Are Getting Married
             </p>
 
-            <div className="rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-8 max-w-xl mx-auto backdrop-blur-md border border-white"
-              style={{
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-              }}>
-
-              <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-2 md:gap-3 mb-6">
-                {[
-
-                  { label: "Days", value: timeLeft.days },
-                  { label: "Hours", value: timeLeft.hours },
-                  { label: "Minutes", value: timeLeft.minutes },
-                  { label: "Seconds", value: timeLeft.seconds },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="text-white rounded-lg p-3 md:p-4 flex flex-col items-center min-w-[70px] md:min-w-20 backdrop-blur-sm border border-white border-opacity-30"
-                    style={{
-                      backgroundColor: "rgba(123, 0, 28, 0.6)",
-                      backdropFilter: "blur(8px)",
-                      WebkitBackdropFilter: "blur(8px)",
-                    }}
-                  >
-                    <span className="text-lg md:text-2xl font-bold">{item.value}</span>
-                    <span className="text-xs uppercase tracking-[1px] md:tracking-[2px] font-semibold">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                onClick={() => document.getElementById('hero').scrollIntoView({ behavior: 'smooth' })}
-                className="w-full px-6 md:px-8 py-2 md:py-3 text-white font-semibold rounded-full hover:scale-105 transition-all transform shadow-lg text-sm md:text-base backdrop-blur-sm border border-white border-opacity-20"
-                style={{ 
-                  fontFamily: "Playfair Display",
-                  backgroundColor: "rgba(123, 0, 28, 0.7)",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
-                }}
-              >
-                View Invitation
-              </button>
-            </div>
+            <Countdown />
           </div>
         </section>
 
-        {/* HERO */}
         <section
           id="hero"
-          className="min-h-screen flex items-center justify-center px-4 md:px-5 py-8 md:py-10 bg-cover bg-center"
+          className="section-invite section-block flex items-center justify-center bg-cover bg-center"
           style={{
             backgroundImage:
               "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1400&auto=format&fit=crop')",
           }}
         >
-          <div className="bg-white max-w-3xl w-full rounded-2xl md:rounded-[30px] shadow-2xl p-6 md:p-10 lg:p-16 text-center relative border border-[#7b001c]">
+          <div className="invite-card bg-white text-center">
 
             <img
               src="https://png.pngtree.com/png-clipart/20230817/original/pngtree-watercolor-burgundy-flowers-bouquet-picture-image_8008404.png"
-              alt="flowers"
-              className="w-32 md:w-44 absolute left-1/2 -translate-x-1/2 -top-10 md:-top-12"
+              alt=""
+              className="invite-flowers"
             />
 
-
-            <p className="uppercase tracking-[3px] md:tracking-[5px] text-[#b75d73] text-xs md:text-sm mt-16 md:mt-20">
+            <p className="uppercase tracking-[0.2em] md:tracking-[0.35em] text-[#b75d73] text-xs md:text-sm mt-12 md:mt-16">
               Save The Date
             </p>
 
-            <h2
-              className="text-3xl md:text-5xl mt-3 md:mt-5"
-              style={{ fontFamily: "Great Vibes" }}
-            >
+            <h2 className="font-vibes text-3xl md:text-5xl mt-3 md:mt-5 text-[#7b001c]">
               We
             </h2>
 
-            <h1
-              className="text-3xl md:text-5xl lg:text-7xl font-bold leading-tight mt-2 md:mt-3"
-              style={{ fontFamily: "Playfair Display" }}
-            >
+            <h1 className="invite-names text-[#7b001c] mt-2 md:mt-3">
               JUSTIN
-              <span
-                className="block text-2xl md:text-4xl text-[#b75d73] my-1 md:my-2"
-                style={{ fontFamily: "Great Vibes" }}
-              >
-                and
-              </span>
+              <span className="invite-and block my-1 md:my-2">&amp;</span>
               CRISTINE
             </h1>
 
@@ -460,27 +331,16 @@ export default function App() {
           </div>
         </section>
 
-        {/* GALLERY SECTION */}
-        <section id="gallery" className="py-12 md:py-16 px-4 md:px-5 bg-gradient-to-b from-[#f7f3f3] to-white">
+        <section id="gallery" className="section-block bg-gradient-to-b from-[#f7f3f3] to-white">
           <div className="max-w-6xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-12 md:mb-16">
-              <h2
-                className="text-4xl md:text-5xl font-bold mb-3"
-                style={{ fontFamily: "Playfair Display", color: "#7b001c" }}
-              >
-                Our Happy Moments
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-[#7b001c] via-[#d98a99] to-[#7b001c] mx-auto mb-6"></div>
-              <p className="text-[#7d5a63] text-base md:text-lg" style={{ fontFamily: "Great Vibes" }}>
-                Cherished memories leading up to our special day
-              </p>
+            <div className="text-center mb-8 md:mb-16">
+              <h2 className="section-title text-[#7b001c]">Our Happy Moments</h2>
+              <div className="section-divider" />
+              <p className="section-subtitle">Cherished memories leading up to our special day</p>
             </div>
 
-            {/* Main Slideshow */}
-            <div className="relative w-full mb-10 md:mb-14">
-              {/* Main Image Container */}
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl h-96 md:h-[500px] lg:h-[600px] group bg-black">
+            <div className="relative w-full mb-8 md:mb-14">
+              <div className="gallery-stage group bg-black">
                 {galleryImages.map((src, i) => (
                   <div
                     key={i}
@@ -500,48 +360,44 @@ export default function App() {
                   </div>
                 ))}
 
-                {/* Navigation Arrows */}
                 <button
+                  type="button"
                   onClick={prevSlide}
-                  className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[#7b001c] rounded-full p-3 md:p-4 transition-all duration-300 hover:scale-110 z-20 shadow-lg backdrop-blur-sm"
+                  className="gallery-arrow gallery-arrow-prev"
                   aria-label="Previous slide"
                 >
-                  <span className="text-2xl md:text-3xl font-bold">‹</span>
+                  <span className="text-2xl md:text-3xl font-bold leading-none">‹</span>
                 </button>
 
                 <button
+                  type="button"
                   onClick={nextSlide}
-                  className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[#7b001c] rounded-full p-3 md:p-4 transition-all duration-300 hover:scale-110 z-20 shadow-lg backdrop-blur-sm"
+                  className="gallery-arrow gallery-arrow-next"
                   aria-label="Next slide"
                 >
-                  <span className="text-2xl md:text-3xl font-bold">›</span>
+                  <span className="text-2xl md:text-3xl font-bold leading-none">›</span>
                 </button>
 
-                {/* Slide Counter */}
-                <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 bg-[#7b001c]/90 backdrop-blur-md text-white px-4 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold shadow-lg border border-[#d98a99]/50">
+                <div className="gallery-meta gallery-meta-right">
                   {currentSlide + 1} / {galleryImages.length}
                 </div>
 
-                {/* Image Title/Info */}
-                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 text-white">
-                  <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-[#f3c4c4]">
+                <div className="gallery-meta gallery-meta-left">
+                  <p className="font-semibold uppercase tracking-widest text-[#f3c4c4] m-0">
                     Memory {currentSlide + 1}
                   </p>
                 </div>
               </div>
 
-              {/* Dot Navigation */}
-              <div className="flex justify-center gap-2 md:gap-3 mt-8 flex-wrap">
+              <div className="gallery-dots">
                 {galleryImages.map((_, i) => (
                   <button
                     key={i}
+                    type="button"
                     onClick={() => goToSlide(i)}
-                    className={`transition-all duration-300 rounded-full hover:scale-110 ${
-                      i === currentSlide
-                        ? "bg-[#7b001c] w-3 md:w-4 h-3 md:h-4 shadow-lg"
-                        : "bg-[#d98a99] w-2 md:w-3 h-2 md:h-3 hover:bg-[#b75d73]"
-                    }`}
+                    className={`gallery-dot ${i === currentSlide ? "gallery-dot-active" : "gallery-dot-inactive"}`}
                     aria-label={`Go to slide ${i + 1}`}
+                    aria-current={i === currentSlide ? "true" : undefined}
                   />
                 ))}
               </div>
@@ -600,59 +456,32 @@ export default function App() {
           </div>
         </section>
 
-        {/* VIDEO SECTION */}
-        <section id="film" className="w-full py-12 md:py-16 px-4 md:px-5 bg-gradient-to-b from-[#f7f3f3] to-white">
+        <section id="film" className="section-block bg-gradient-to-b from-[#f7f3f3] to-white">
           <div className="max-w-4xl mx-auto">
-            <h2
-              className="text-3xl md:text-4xl text-center mb-6 md:mb-8"
-              style={{ fontFamily: "Playfair Display" }}
-            >
-              Save The Date Video
-            </h2>
-            <div className="relative w-full" style={{ paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
+            <h2 className="section-title text-[#7b001c]">Save The Date Video</h2>
+            <div className="video-wrap">
               <iframe
                 src="https://drive.google.com/file/d/1AcPcQB_gL4TTbYIw2UMzn1XgNNoQGn8J/preview"
                 title="Wedding Film - Justin & Cristine"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  border: "none",
-                  borderRadius: "12px",
-                  boxShadow: "0 10px 30px rgba(123, 0, 28, 0.2)",
-                }}
                 allow="autoplay"
-              ></iframe>
+              />
             </div>
           </div>
         </section>
 
-        {/* DETAILS / PROGRAM + COLOR PALETTE */}
-        <section id="details" className="py-12 md:py-16 px-4 md:px-5 bg-white">
+        <section id="details" className="section-block bg-white">
           <div className="max-w-4xl mx-auto">
 
-            <h2
-              className="text-3xl md:text-4xl text-center mb-6 md:mb-8"
-              style={{ fontFamily: "Playfair Display" }}
-            >
-              The Finer Details
-            </h2>
-
-            <p className="text-center text-[#7d5a63] mb-6 md:mb-8 text-sm md:text-base">
+            <h2 className="section-title text-[#7b001c]">The Finer Details</h2>
+            <p className="text-center text-[#7d5a63] mb-6 md:mb-8 text-sm md:text-base px-2">
               Scanned program cards and the wedding color palette.
             </p>
 
-            <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
+            <div className="palette-row mb-8">
               {palette.map((c) => (
                 <div key={c} className="flex flex-col items-center">
-                  <div
-                    style={{ background: c }}
-                    className="w-12 md:w-14 h-12 md:h-14 rounded-full border"
-                    aria-hidden
-                  />
-                  <span className="mt-2 text-xs md:text-sm text-[#7d5a63]">{c}</span>
+                  <div className="palette-swatch" style={{ background: c }} aria-hidden />
+                  <span className="mt-2 text-[0.65rem] sm:text-xs text-[#7d5a63]">{c}</span>
                 </div>
               ))}
             </div>
@@ -663,7 +492,7 @@ export default function App() {
                 The Bearers
               </h3>
               
-              <div className="bg-gradient-to-br from-[#d98a99] to-[#b75d73] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">
+              <div className="detail-card bg-gradient-to-br from-[#d98a99]/70 to-[#b75d73]/70 backdrop-blur-md border border-white/20 text-white">
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">LOVE BEARERS</h4>
                   <p className="text-sm md:text-base">{bearers.loveBearers.join(" / ")}</p>
@@ -701,13 +530,13 @@ export default function App() {
                 The Sponsors
               </h3>
 
-              <div className="bg-gradient-to-br from-[#b75d73] to-[#7b001c] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">
-                <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6" style={{ fontFamily: "Playfair Display" }}>
+              <div className="detail-card bg-gradient-to-br from-[#b75d73]/70 to-[#7b001c]/70 backdrop-blur-md border border-white/20 text-white">
+                <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 font-playfair">
                   DIMAISIP - APAS
                 </h4>
                 <p className="text-sm md:text-base mb-6 md:mb-8 italic">NUPTIAL</p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
+                <div className="sponsor-grid mb-6 md:mb-8">
                   <div>
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
                       Groom's Parents
@@ -734,9 +563,9 @@ export default function App() {
                 <div>
                   <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3">Principal Sponsors</h5>
                   <p className="text-xs md:text-sm mb-3 md:mb-4 italic">To stand as witness to our vows</p>
-                  <div className="text-xs md:text-sm grid grid-cols-2 gap-2 md:gap-3">
+                  <div className="principal-grid text-xs md:text-sm">
                     {sponsors.principalSponsors.map((name) => (
-                      <p key={name}>{name}</p>
+                      <p key={name} className="m-0">{name}</p>
                     ))}
                   </div>
                 </div>
@@ -749,7 +578,7 @@ export default function App() {
                 The Ceremonial Roles
               </h3>
 
-              <div className="bg-gradient-to-br from-[#b75d73] to-[#7b001c] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">
+              <div className="detail-card bg-gradient-to-br from-[#b75d73]/70 to-[#7b001c]/70 backdrop-blur-md border border-white/20 text-white">
                 <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6" style={{ fontFamily: "Playfair Display" }}>
                   DIMAISIP - APAS
                 </h4>
@@ -806,7 +635,7 @@ export default function App() {
                 The Entourage
               </h3>
 
-              <div className="bg-gradient-to-br from-[#b75d73] to-[#7b001c] rounded-xl md:rounded-2xl p-6 md:p-8 text-white text-center">
+              <div className="detail-card bg-gradient-to-br from-[#b75d73]/70 to-[#7b001c]/70 backdrop-blur-md border border-white/20 text-white">
                 <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6" style={{ fontFamily: "Playfair Display" }}>
                   DIMAISIP - APAS
                 </h4>
@@ -816,9 +645,9 @@ export default function App() {
                   The Entourage
                 </h5>
 
-                <div className="grid grid-cols-2 gap-4 md:gap-8">
+                <div className="entourage-grid">
                   <div>
-                    <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">GROOM'S MEN</h6>
+                    <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">GROOM&apos;S MEN</h6>
                     <div className="text-xs md:text-sm space-y-1">
                       {entourage.groomsMen.map((n) => (
                         <p key={n}>{n}</p>
@@ -827,7 +656,7 @@ export default function App() {
                   </div>
 
                   <div>
-                    <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">BRIDE'S MAIDS</h6>
+                    <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">BRIDE&apos;S MAIDS</h6>
                     <div className="text-xs md:text-sm space-y-1">
                       {entourage.bridesMaids.map((n) => (
                         <p key={n}>{n}</p>
@@ -844,15 +673,13 @@ export default function App() {
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className="bg-[#7b001c] text-white py-8 md:py-12 px-4 md:px-5">
+        <footer className="site-footer bg-[#7b001c] text-white">
           <div className="max-w-4xl mx-auto">
             
-            {/* Hashtag Section */}
-            <div className="text-center mb-8 md:mb-10">
+            <div className="text-center mb-8 md:mb-10 px-2">
               <p className="text-xs md:text-sm mb-2 md:mb-3">Please share your photos using our official hashtag</p>
-              <div className="bg-white text-[#7b001c] py-2 md:py-3 px-4 md:px-6 rounded-lg inline-block">
-                <p className="text-lg md:text-2xl font-bold" style={{ fontFamily: "Playfair Display" }}>
+              <div className="hashtag-box bg-white text-[#7b001c] rounded-lg">
+                <p className="hashtag-text m-0">
                   #creaTINewchapterwithTATIN
                 </p>
               </div>
@@ -871,7 +698,7 @@ export default function App() {
                     <img
                       src={churchLocation}
                       alt="Church location"
-                      className="w-40 h-40 md:w-48 md:h-48 object-cover rounded"
+                      className="location-img"
                     />
                   </div>
                   <h4 className="text-lg md:text-xl font-semibold mb-1 md:mb-2">CHURCH</h4>
@@ -887,7 +714,7 @@ export default function App() {
                     <img
                       src={receptionLocation}
                       alt="Reception location"
-                      className="w-40 h-40 md:w-48 md:h-48 object-cover rounded"
+                      className="location-img"
                     />
                   </div>
                   <h4 className="text-lg md:text-xl font-semibold mb-1 md:mb-2">RECEPTION</h4>

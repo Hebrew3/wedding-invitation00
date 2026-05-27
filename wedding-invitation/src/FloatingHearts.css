@@ -1,0 +1,66 @@
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.float-heart {
+  position: absolute;
+  top: -15vh;
+  left: 0;
+  color: rgba(255, 255, 255, 0.95);
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 4px 10px rgba(185, 93, 115, 0.28));
+  font-family: "Playfair Display", serif;
+  text-shadow:
+    0 0 12px rgba(185, 93, 115, 0.35),
+    0 0 22px rgba(217, 138, 153, 0.25);
+  will-change: transform, opacity;
+  animation-name: float-heart;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes float-heart {
+  0% {
+    transform: translate3d(0, 110vh, 0) scale(var(--scale)) rotate(var(--rot));
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity, 0.25);
+  }
+  100% {
+    transform: translate3d(var(--drift), -25vh, 0)
+      scale(calc(var(--scale) + 0.06))
+      rotate(calc(var(--rot) + 45deg));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-heart {
+    animation: none !important;
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .floating-hearts {
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 480px) {
+  .float-heart:nth-child(n + 11) {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .float-heart:nth-child(n + 8) {
+    display: none;
+  }
+}
+

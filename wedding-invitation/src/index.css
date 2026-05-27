@@ -1,10 +1,52 @@
 @import "tailwindcss";
 
+:root {
+  --wine: #7b001c;
+  --wine-dark: #5a0015;
+  --blush: #d98a99;
+  --rose: #b75d73;
+  --cream: #f7f3f3;
+  --nav-h: 4.25rem;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h, 4.25rem) + env(safe-area-inset-top, 0));
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  background: #f7f3f3;
+  background: var(--cream);
+  color: var(--wine);
+  overflow-x: clip;
+  min-width: 320px;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blush);
+  outline-offset: 2px;
 }
 
 @keyframes fadeIn {
@@ -18,4 +60,13 @@ body {
 
 .main-enter {
   animation: fadeIn 0.6s ease-out;
+}
+
+/* Fluid display helpers */
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+
+.font-vibes {
+  font-family: "Great Vibes", cursive;
 }
