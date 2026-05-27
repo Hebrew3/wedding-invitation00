@@ -19,7 +19,7 @@ export default function MusicToggle({ isPlaying, isMuted, onToggle }) {
         {isMuted ? "🔇" : isPlaying ? "🎵" : "🎶"}
       </span>
       <span className="music-toggle-label">
-        {isMuted ? "Music off" : isPlaying ? "Tahanan" : "Play music"}
+        {isMuted ? "Music off" : isPlaying ? "Palagi" : "Play music"}
       </span>
     </button>
   );

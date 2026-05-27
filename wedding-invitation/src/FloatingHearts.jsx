@@ -1,25 +1,27 @@
 import { useMemo } from "react";
 import "./FloatingHearts.css";
 
-const HEART_COUNT = 18;
+const HEART_COUNT = { intro: 14, default: 16 };
 
 function rand(min, max) {
   return min + Math.random() * (max - min);
 }
 
-export default function FloatingHearts() {
-  // Create layout once to avoid generating on every re-render.
+export default function FloatingHearts({ variant = "default" }) {
+  const isIntro = variant === "intro";
+  const count = HEART_COUNT[variant] ?? HEART_COUNT.default;
+
   const hearts = useMemo(
     () =>
-      Array.from({ length: HEART_COUNT }, (_, i) => {
+      Array.from({ length: count }, (_, i) => {
         const left = rand(0, 100);
-        const drift = rand(-18, 18); // vw
-        const scale = rand(0.65, 1.25);
-        const rot = rand(-35, 35);
-        const dur = rand(6, 12);
-        const delay = -rand(0, dur); // negative so it starts mid-animation
-        const opacity = rand(0.30, 0.62);
-        const size = rand(16, 34);
+        const drift = rand(-16, 16);
+        const scale = rand(0.75, 1.2);
+        const rot = rand(-40, 40);
+        const dur = rand(7, 13);
+        const delay = -rand(0, dur);
+        const opacity = isIntro ? rand(0.42, 0.72) : rand(0.28, 0.55);
+        const size = isIntro ? rand(18, 36) : rand(14, 28);
 
         return {
           key: i,
@@ -33,11 +35,14 @@ export default function FloatingHearts() {
           size,
         };
       }),
-    [],
+    [count, isIntro],
   );
 
   return (
-    <div className="floating-hearts" aria-hidden>
+    <div
+      className={`floating-hearts floating-hearts--${variant}`}
+      aria-hidden
+    >
       {hearts.map((h) => (
         <span
           key={h.key}
@@ -48,7 +53,6 @@ export default function FloatingHearts() {
             opacity: h.opacity,
             animationDuration: `${h.dur}s`,
             animationDelay: `${h.delay}s`,
-            // CSS custom properties for keyframes.
             ["--drift"]: `${h.drift}vw`,
             ["--scale"]: h.scale,
             ["--rot"]: `${h.rot}deg`,
@@ -61,4 +65,3 @@ export default function FloatingHearts() {
     </div>
   );
 }
-

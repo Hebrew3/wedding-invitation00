@@ -1,13 +1,6 @@
 import { useState, useCallback } from "react";
+import FloatingHearts from "./FloatingHearts";
 import "./EnvelopeIntro.css";
-
-const PETALS = Array.from({ length: 14 }, (_, i) => ({
-  id: i,
-  left: `${5 + (i * 6.5) % 90}%`,
-  delay: `${(i * 0.7) % 8}s`,
-  duration: `${10 + (i % 5) * 2}s`,
-  size: 8 + (i % 4) * 3,
-}));
 
 export default function EnvelopeIntro({ onOpen, onOpenStart }) {
   const [opening, setOpening] = useState(false);
@@ -27,19 +20,7 @@ export default function EnvelopeIntro({ onOpen, onOpenStart }) {
       role="dialog"
       aria-label="Wedding invitation envelope"
     >
-      {PETALS.map((p) => (
-        <span
-          key={p.id}
-          className="petal"
-          style={{
-            left: p.left,
-            animationDelay: p.delay,
-            animationDuration: p.duration,
-            width: p.size,
-            height: p.size * 1.3,
-          }}
-        />
-      ))}
+      <FloatingHearts variant="intro" />
 
       <div className="envelope-stage">
         <div className={`envelope-3d${opening ? " is-opening" : ""}`}>

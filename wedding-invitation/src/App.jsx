@@ -181,7 +181,7 @@ export default function App() {
 
   return (
     <div className="site bg-[#f7f3f3] text-[#7b001c] main-enter">
-      <FloatingHearts />
+      <FloatingHearts variant="default" />
       <MusicToggle
         isPlaying={isPlaying}
         isMuted={isMuted}
@@ -403,52 +403,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Thumbnail Grid */}
-            <div className="mt-14 md:mt-20">
-              <h3
-                className="text-center text-[#7d5a63] text-base md:text-lg mb-8"
-                style={{ fontFamily: "Great Vibes", fontSize: "18px" }}
-              >
-                ✨ Explore all moments ✨
-              </h3>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-                {galleryImages.map((src, i) => (
-                  <button
-                    key={i}
-                    onClick={() => goToSlide(i)}
-                    className={`group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 aspect-square border-2 ${
-                      i === currentSlide
-                        ? "border-[#7b001c] ring-2 ring-offset-2 ring-[#d98a99] scale-105"
-                        : "border-transparent hover:border-[#d98a99]"
-                    }`}
-                  >
-                    <img
-                      src={src}
-                      alt={`Thumbnail ${i + 1}`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-
-                    {/* Overlay on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#7b001c]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
-                      <span className="text-white text-xs md:text-sm font-semibold">View</span>
-                    </div>
-
-                    {/* Active Indicator */}
-                    {i === currentSlide && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/0">
-                        <div className="bg-white/90 rounded-full p-2">
-                          <span className="text-[#7b001c] text-xl">▶</span>
-                        </div>
-                      </div>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Photo Count Info */}
-            <div className="text-center mt-12 md:mt-16">
+            <div className="text-center mt-8 md:mt-10">
               <p className="text-[#b75d73] text-sm md:text-base">
                 <span className="font-bold text-[#7b001c] text-lg md:text-xl">{galleryImages.length}</span> treasured moments captured
               </p>

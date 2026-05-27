@@ -6,17 +6,36 @@
   overflow: hidden;
 }
 
+/* Intro envelope screen — wine hearts on pink gradient */
+.floating-hearts--intro {
+  z-index: 1;
+}
+
+.floating-hearts--intro .float-heart {
+  top: -12vh;
+  color: #7b001c;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 2px 6px rgba(123, 0, 28, 0.25));
+  text-shadow:
+    0 0 14px rgba(255, 255, 255, 0.65),
+    0 0 28px rgba(243, 196, 196, 0.45);
+  font-weight: 700;
+}
+
+/* Main site — soft glow on varied backgrounds */
+.floating-hearts--default .float-heart {
+  top: -15vh;
+  color: rgba(123, 0, 28, 0.85);
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 8px rgba(185, 93, 115, 0.2));
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
 .float-heart {
   position: absolute;
-  top: -15vh;
   left: 0;
-  color: rgba(255, 255, 255, 0.95);
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 4px 10px rgba(185, 93, 115, 0.28));
   font-family: "Playfair Display", serif;
-  text-shadow:
-    0 0 12px rgba(185, 93, 115, 0.35),
-    0 0 22px rgba(217, 138, 153, 0.25);
+  line-height: 1;
   will-change: transform, opacity;
   animation-name: float-heart;
   animation-timing-function: linear;
@@ -28,8 +47,11 @@
     transform: translate3d(0, 110vh, 0) scale(var(--scale)) rotate(var(--rot));
     opacity: 0;
   }
-  10% {
-    opacity: var(--opacity, 0.25);
+  8% {
+    opacity: var(--opacity, 0.5);
+  }
+  92% {
+    opacity: var(--opacity, 0.5);
   }
   100% {
     transform: translate3d(var(--drift), -25vh, 0)
@@ -46,21 +68,22 @@
   }
 }
 
-@media (max-width: 420px) {
-  .floating-hearts {
-    opacity: 0.75;
-  }
-}
-
 @media (max-width: 480px) {
-  .float-heart:nth-child(n + 11) {
+  .floating-hearts--intro .float-heart:nth-child(n + 10) {
+    display: none;
+  }
+
+  .floating-hearts--default .float-heart:nth-child(n + 10) {
     display: none;
   }
 }
 
 @media (max-width: 360px) {
-  .float-heart:nth-child(n + 8) {
+  .floating-hearts--intro .float-heart:nth-child(n + 7) {
+    display: none;
+  }
+
+  .floating-hearts--default .float-heart:nth-child(n + 8) {
     display: none;
   }
 }
-
