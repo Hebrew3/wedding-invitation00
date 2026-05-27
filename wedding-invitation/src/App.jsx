@@ -201,7 +201,6 @@ export default function App() {
                 <span className="nav-label-short">Wedding</span>
               </a>
               <a href="#gallery" className="nav-link text-white">Gallery</a>
-              <a href="#home" className="nav-link text-white">Countdown</a>
               <a href="#details" className="nav-link text-white">Details</a>
               <a href="#film" className="nav-link nav-link-video text-white">VIDEO</a>
             </div>
@@ -222,7 +221,6 @@ export default function App() {
               <a href="#home" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Home</a>
               <a href="#hero" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>The wedding feature</a>
               <a href="#gallery" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Gallery</a>
-              <a href="#home" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Countdown</a>
               <a href="#details" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Details</a>
               <a href="#film" className="nav-drawer-link nav-drawer-video text-white" onClick={() => setIsMenuOpen(false)}>VIDEO</a>
             </div>
@@ -424,7 +422,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="details" className="section-block bg-white">
+        <section id="details" className="section-block details-section bg-white">
           <div className="max-w-4xl mx-auto">
 
             <h2 className="section-title text-[#7b001c]">The Finer Details</h2>
@@ -447,7 +445,8 @@ export default function App() {
                 The Bearers
               </h3>
               
-              <div className="detail-card bg-gradient-to-br from-[#d98a99]/70 to-[#b75d73]/70 backdrop-blur-md border border-white/20 text-white">
+              <div className="detail-card detail-program-card">
+                <p className="detail-program-script">To Honor</p>
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">LOVE BEARERS</h4>
                   <p className="text-sm md:text-base">{bearers.loveBearers.join(" / ")}</p>
@@ -485,7 +484,8 @@ export default function App() {
                 The Sponsors
               </h3>
 
-              <div className="detail-card bg-gradient-to-br from-[#b75d73]/70 to-[#7b001c]/70 backdrop-blur-md border border-white/20 text-white">
+              <div className="detail-card detail-program-card">
+                <p className="detail-program-script">Grace and Blessing</p>
                 <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 font-playfair">
                   DIMAISIP - APAS
                 </h4>
@@ -533,7 +533,8 @@ export default function App() {
                 The Ceremonial Roles
               </h3>
 
-              <div className="detail-card bg-gradient-to-br from-[#b75d73]/70 to-[#7b001c]/70 backdrop-blur-md border border-white/20 text-white">
+              <div className="detail-card detail-program-card">
+                <p className="detail-program-script">Ceremonial Roles</p>
                 <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6" style={{ fontFamily: "Playfair Display" }}>
                   DIMAISIP - APAS
                 </h4>
@@ -590,7 +591,8 @@ export default function App() {
                 The Entourage
               </h3>
 
-              <div className="detail-card bg-gradient-to-br from-[#b75d73]/70 to-[#7b001c]/70 backdrop-blur-md border border-white/20 text-white">
+              <div className="detail-card detail-program-card">
+                <p className="detail-program-script">Entourage</p>
                 <h4 className="text-xl md:text-2xl font-bold mb-4 md:mb-6" style={{ fontFamily: "Playfair Display" }}>
                   DIMAISIP - APAS
                 </h4>
@@ -628,12 +630,12 @@ export default function App() {
           </div>
         </section>
 
-        <footer className="site-footer bg-[#7b001c] text-white">
+        <footer className="site-footer floral-footer text-white">
           <div className="max-w-4xl mx-auto">
             
             <div className="text-center mb-8 md:mb-10 px-2">
               <p className="text-xs md:text-sm mb-2 md:mb-3">Please share your photos using our official hashtag</p>
-              <div className="hashtag-box bg-white text-[#7b001c] rounded-lg">
+              <div className="hashtag-box floral-hashtag-box text-[#7b001c] rounded-lg">
                 <p className="hashtag-text m-0">
                   #creaTINewchapterwithTATIN
                 </p>
