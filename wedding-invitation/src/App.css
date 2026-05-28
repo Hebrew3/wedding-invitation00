@@ -522,38 +522,26 @@
 
 .sponsor-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .sponsor-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .principal-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem;
-}
-
-@media (min-width: 400px) {
-  .principal-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .entourage-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
-@media (min-width: 480px) {
-  .entourage-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.detail-two-col-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem 0.75rem;
 }
 
 .palette-row {

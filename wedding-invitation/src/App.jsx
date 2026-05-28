@@ -449,7 +449,11 @@ export default function App() {
                 <p className="detail-program-script">To Honor</p>
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">LOVE BEARERS</h4>
-                  <p className="text-sm md:text-base">{bearers.loveBearers.join(" / ")}</p>
+                  <div className="detail-two-col-grid text-sm md:text-base">
+                    {bearers.loveBearers.map((name) => (
+                      <p key={name} className="m-0">{name}</p>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mb-6 md:mb-8">
@@ -459,19 +463,27 @@ export default function App() {
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">COIN BEARER</h4>
-                  <p className="text-sm md:text-base">{bearers.coinBearers.join(" / ")}</p>
+                  <div className="detail-two-col-grid text-sm md:text-base">
+                    {bearers.coinBearers.map((name) => (
+                      <p key={name} className="m-0">{name}</p>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">BIBLE BEARER</h4>
-                  <p className="text-sm md:text-base">{bearers.bibleBearers.join(" / ")}</p>
+                  <div className="detail-two-col-grid text-sm md:text-base">
+                    {bearers.bibleBearers.map((name) => (
+                      <p key={name} className="m-0">{name}</p>
+                    ))}
+                  </div>
                 </div>
 
                 <div>
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">FLOWER GIRLS</h4>
-                  <div className="text-sm md:text-base space-y-1">
+                  <div className="detail-two-col-grid text-sm md:text-base">
                     {bearers.flowerGirls.map((f) => (
-                      <p key={f}>{f}</p>
+                      <p key={f} className="m-0">{f}</p>
                     ))}
                   </div>
                 </div>
@@ -496,9 +508,9 @@ export default function App() {
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
                       Groom's Parents
                     </h5>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {sponsors.groomParents.map((name) => (
-                        <p key={name}>{name}</p>
+                        <p key={name} className="m-0">{name}</p>
                       ))}
                     </div>
                   </div>
@@ -507,9 +519,9 @@ export default function App() {
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
                       Bride's Parents
                     </h5>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {sponsors.brideParents.map((name) => (
-                        <p key={name}>{name}</p>
+                        <p key={name} className="m-0">{name}</p>
                       ))}
                     </div>
                   </div>
@@ -557,27 +569,27 @@ export default function App() {
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-2 md:mb-3">TO LIGHT OUR PATH</h6>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {ceremonial.toLightOurPath.map((p) => (
-                        <p key={p.name}>{p.name} / {p.spouse}</p>
+                        <p key={p.name} className="m-0">{p.name} &amp; {p.spouse}</p>
                       ))}
                     </div>
                   </div>
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-2 md:mb-3">TO CLOTHE AS ONE</h6>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {ceremonial.toClotheAsOne.map((p) => (
-                        <p key={p.name}>{p.name}</p>
+                        <p key={p.name} className="m-0">{p.name}</p>
                       ))}
                     </div>
                   </div>
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-2 md:mb-3">TO BIND US TOGETHER</h6>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {ceremonial.toBindUsTogether.map((p) => (
-                        <p key={p.name}>{p.name}</p>
+                        <p key={p.name} className="m-0">{p.name}</p>
                       ))}
                     </div>
                   </div>
@@ -605,18 +617,18 @@ export default function App() {
                 <div className="entourage-grid">
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">GROOM&apos;S MEN</h6>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {entourage.groomsMen.map((n) => (
-                        <p key={n}>{n}</p>
+                        <p key={n} className="m-0">{n}</p>
                       ))}
                     </div>
                   </div>
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">BRIDE&apos;S MAIDS</h6>
-                    <div className="text-xs md:text-sm space-y-1">
+                    <div className="detail-two-col-grid text-xs md:text-sm">
                       {entourage.bridesMaids.map((n) => (
-                        <p key={n}>{n}</p>
+                        <p key={n} className="m-0">{n}</p>
                       ))}
                     </div>
                   </div>
