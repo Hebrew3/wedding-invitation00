@@ -363,7 +363,7 @@ export default function App() {
             </div>
 
             <div className="relative w-full mb-8 md:mb-14">
-              <div className="gallery-stage group bg-black">
+              <div className="gallery-stage group">
                 {galleryImages.map((src, i) => (
                   <div
                     key={i}
@@ -376,7 +376,7 @@ export default function App() {
                     <img
                       src={src}
                       alt={`Gallery ${i + 1}`}
-                      className="w-full h-full object-cover"
+                      className="gallery-slide-img"
                     />
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
@@ -441,7 +441,8 @@ export default function App() {
               <iframe
                 src="https://drive.google.com/file/d/1AcPcQB_gL4TTbYIw2UMzn1XgNNoQGn8J/preview"
                 title="Wedding Film - Justin & Cristine"
-                allow="autoplay"
+                allow="autoplay; fullscreen"
+                allowFullScreen
               />
             </div>
           </div>
@@ -488,20 +489,12 @@ export default function App() {
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">COIN BEARER</h4>
-                  <div className="detail-two-col-grid text-sm md:text-base">
-                    {bearers.coinBearers.map((name) => (
-                      <p key={name} className="m-0">{name}</p>
-                    ))}
-                  </div>
+                  <p className="text-sm md:text-base m-0">{bearers.coinBearers.join(" & ")}</p>
                 </div>
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">BIBLE BEARER</h4>
-                  <div className="detail-two-col-grid text-sm md:text-base">
-                    {bearers.bibleBearers.map((name) => (
-                      <p key={name} className="m-0">{name}</p>
-                    ))}
-                  </div>
+                  <p className="text-sm md:text-base m-0">{bearers.bibleBearers.join(" & ")}</p>
                 </div>
 
                 <div>
@@ -533,7 +526,7 @@ export default function App() {
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
                       Groom's Parents
                     </h5>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
+                    <div className="detail-name-list text-xs md:text-sm">
                       {sponsors.groomParents.map((name) => (
                         <p key={name} className="m-0">{name}</p>
                       ))}
@@ -544,7 +537,7 @@ export default function App() {
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
                       Bride's Parents
                     </h5>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
+                    <div className="detail-name-list text-xs md:text-sm">
                       {sponsors.brideParents.map((name) => (
                         <p key={name} className="m-0">{name}</p>
                       ))}
@@ -644,7 +637,7 @@ export default function App() {
                 <div className="entourage-grid">
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">GROOM&apos;S MEN</h6>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
+                    <div className="detail-name-list text-xs md:text-sm">
                       {entourage.groomsMen.map((n) => (
                         <p key={n} className="m-0">{n}</p>
                       ))}
@@ -653,7 +646,7 @@ export default function App() {
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">BRIDE&apos;S MAIDS</h6>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
+                    <div className="detail-name-list text-xs md:text-sm">
                       {entourage.bridesMaids.map((n) => (
                         <p key={n} className="m-0">{n}</p>
                       ))}
