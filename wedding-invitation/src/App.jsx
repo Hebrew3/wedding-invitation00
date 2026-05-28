@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import EnvelopeIntro from "./EnvelopeIntro";
 import MusicToggle from "./MusicToggle";
 import { useWeddingMusic } from "./useWeddingMusic";
@@ -30,7 +30,8 @@ export default function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { play, toggleMute, isPlaying, isMuted } = useWeddingMusic();
+  const { play, toggleMute, mute, isPlaying, isMuted } = useWeddingMusic();
+  const filmSectionRef = useRef(null);
 
   // Gallery images array using imports
   const galleryImages = [
@@ -52,6 +53,23 @@ export default function App() {
     return () => document.body.classList.remove("nav-open");
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const section = filmSectionRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && isPlaying && !isMuted) {
+          mute();
+        }
+      },
+      { threshold: 0.55 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [isPlaying, isMuted, mute]);
+
   // Gallery slide functions
   const goToSlide = (index) => {
     setCurrentSlide(index);
@@ -64,6 +82,13 @@ export default function App() {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
   };
+
+  const handleVideoNavClick = useCallback(() => {
+    if (isPlaying && !isMuted) {
+      mute();
+    }
+    setIsMenuOpen(false);
+  }, [isMuted, isPlaying, mute]);
 
   const palette = ["#7b001c", "#a94a5a", "#c9818b", "#e5b8c3", "#ffffff"];
   
@@ -202,7 +227,7 @@ export default function App() {
               </a>
               <a href="#gallery" className="nav-link text-white">Gallery</a>
               <a href="#details" className="nav-link text-white">Details</a>
-              <a href="#film" className="nav-link nav-link-video text-white">VIDEO</a>
+              <a href="#film" className="nav-link nav-link-video text-white" onClick={handleVideoNavClick}>VIDEO</a>
             </div>
 
             <button
@@ -222,7 +247,7 @@ export default function App() {
               <a href="#hero" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>The wedding feature</a>
               <a href="#gallery" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Gallery</a>
               <a href="#details" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Details</a>
-              <a href="#film" className="nav-drawer-link nav-drawer-video text-white" onClick={() => setIsMenuOpen(false)}>VIDEO</a>
+              <a href="#film" className="nav-drawer-link nav-drawer-video text-white" onClick={handleVideoNavClick}>VIDEO</a>
             </div>
           )}
         </nav>
@@ -409,7 +434,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="film" className="section-block bg-gradient-to-b from-[#f7f3f3] to-white">
+        <section id="film" ref={filmSectionRef} className="section-block bg-gradient-to-b from-[#f7f3f3] to-white">
           <div className="max-w-4xl mx-auto">
             <h2 className="section-title text-[#7b001c]">Save The Date Video</h2>
             <div className="video-wrap">
@@ -557,14 +582,16 @@ export default function App() {
                 </h5>
 
                 <div className="space-y-4 md:space-y-6">
-                  <div>
-                    <h6 className="text-base md:text-lg font-semibold mb-1 md:mb-2">BEST MAN</h6>
-                    <p className="text-xs md:text-sm">{ceremonial.bestMan}</p>
-                  </div>
+                  <div className="detail-two-col-grid detail-role-grid">
+                    <div>
+                      <h6 className="text-base md:text-lg font-semibold mb-1 md:mb-2">BEST MAN</h6>
+                      <p className="text-xs md:text-sm m-0">{ceremonial.bestMan}</p>
+                    </div>
 
-                  <div>
-                    <h6 className="text-base md:text-lg font-semibold mb-1 md:mb-2">MAID OF HONOR</h6>
-                    <p className="text-xs md:text-sm">{ceremonial.maidOfHonor}</p>
+                    <div>
+                      <h6 className="text-base md:text-lg font-semibold mb-1 md:mb-2">MAID OF HONOR</h6>
+                      <p className="text-xs md:text-sm m-0">{ceremonial.maidOfHonor}</p>
+                    </div>
                   </div>
 
                   <div>

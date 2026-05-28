@@ -524,24 +524,52 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  align-items: start;
 }
 
 .principal-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem;
+  align-items: start;
 }
 
 .entourage-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem;
+  align-items: start;
 }
 
 .detail-two-col-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.35rem 0.75rem;
+  align-items: start;
+}
+
+.detail-two-col-grid p,
+.principal-grid p {
+  margin: 0;
+  line-height: 1.35;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.detail-role-grid {
+  gap: 0.75rem;
+}
+
+@media (max-width: 420px) {
+  .detail-two-col-grid {
+    gap: 0.3rem 0.55rem;
+  }
+
+  .sponsor-grid,
+  .principal-grid,
+  .entourage-grid {
+    gap: 0.6rem;
+  }
 }
 
 .palette-row {

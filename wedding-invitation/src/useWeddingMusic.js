@@ -52,5 +52,12 @@ export function useWeddingMusic() {
     }
   }, []);
 
-  return { play, toggleMute, isPlaying, isMuted };
+  const mute = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || audio.muted) return;
+    audio.muted = true;
+    setIsMuted(true);
+  }, []);
+
+  return { play, toggleMute, mute, isPlaying, isMuted };
 }
