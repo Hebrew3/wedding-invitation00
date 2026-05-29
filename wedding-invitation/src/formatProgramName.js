@@ -14,11 +14,6 @@ export function formatProgramName(name) {
   return `${prefix} ${match[2].toUpperCase()}`;
 }
 
-export function splitIntoColumns(items) {
-  const mid = Math.ceil(items.length / 2);
-  return [items.slice(0, mid), items.slice(mid)];
-}
-
 export function partitionPrincipalSponsors(names) {
   const men = [];
   const women = [];
