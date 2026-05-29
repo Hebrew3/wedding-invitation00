@@ -463,18 +463,30 @@ export default function App() {
               Dress code, colors, and wedding program details.
             </p>
 
-            <div className="detail-card detail-program-card mb-8 md:mb-10">
-              <p className="detail-program-script">Dress Code</p>
-              <div className="detail-dress-block">
-                <h5 className="detail-dress-heading">PRINCIPAL SPONSORS</h5>
-                <p className="detail-program-name m-0">Gentlemen: American Suit and Slacks</p>
-                <p className="detail-program-name m-0">Ladies: Long Gown</p>
+            <div className="detail-card detail-program-card detail-dress-card mb-8 md:mb-10">
+              <div className="program-card-intro program-card-intro-tight">
+                <p className="detail-program-script">Dress Code</p>
               </div>
-              <div className="detail-dress-block mt-6">
-                <h5 className="detail-dress-heading">GUESTS</h5>
-                <p className="detail-program-name m-0">
-                  We encourage you to dress in casual attire according to our wedding colors
-                </p>
+              <div className="detail-dress-content">
+                <section className="detail-dress-block">
+                  <h5 className="detail-dress-heading">PRINCIPAL SPONSORS</h5>
+                  <ul className="detail-dress-lines">
+                    <li>
+                      <span className="detail-dress-role">Gentlemen</span>
+                      <span className="detail-dress-desc">American Suit and Slacks</span>
+                    </li>
+                    <li>
+                      <span className="detail-dress-role">Ladies</span>
+                      <span className="detail-dress-desc">Long Gown</span>
+                    </li>
+                  </ul>
+                </section>
+                <section className="detail-dress-block">
+                  <h5 className="detail-dress-heading">GUESTS</h5>
+                  <p className="detail-dress-guest-note">
+                    We encourage you to dress in casual attire according to our wedding colors
+                  </p>
+                </section>
               </div>
               <div className="palette-row mt-8">
                 {palette.map((c) => (
