@@ -4,6 +4,12 @@ import MusicToggle from "./MusicToggle";
 import { useWeddingMusic } from "./useWeddingMusic";
 import Countdown from "./Countdown";
 import FloatingHearts from "./FloatingHearts";
+import WeddingTimeline from "./WeddingTimeline";
+import {
+  formatProgramName,
+  partitionPrincipalSponsors,
+  splitIntoColumns,
+} from "./formatProgramName";
 import "./App.css";
 
 // Import gallery images
@@ -91,7 +97,7 @@ export default function App() {
   }, [isMuted, isPlaying, mute]);
 
   const palette = ["#7b001c", "#a94a5a", "#c9818b", "#e5b8c3", "#ffffff"];
-  
+
   const entourage = {
     groomsMen: [
       "Mr. Jaybee De Guzman",
@@ -195,6 +201,12 @@ export default function App() {
     ],
   };
 
+  const { men: principalMen, women: principalWomen } = partitionPrincipalSponsors(
+    sponsors.principalSponsors,
+  );
+  const clotheColumns = splitIntoColumns(ceremonial.toClotheAsOne);
+  const bindColumns = splitIntoColumns(ceremonial.toBindUsTogether);
+
   if (!isOpened) {
     return (
       <EnvelopeIntro
@@ -225,6 +237,7 @@ export default function App() {
                 <span className="nav-label-long">The wedding feature</span>
                 <span className="nav-label-short">Wedding</span>
               </a>
+              <a href="#timeline" className="nav-link text-white">Timeline</a>
               <a href="#gallery" className="nav-link text-white">Gallery</a>
               <a href="#details" className="nav-link text-white">Details</a>
               <a href="#film" className="nav-link nav-link-video text-white" onClick={handleVideoNavClick}>VIDEO</a>
@@ -245,6 +258,7 @@ export default function App() {
             <div className="nav-drawer md:hidden">
               <a href="#home" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Home</a>
               <a href="#hero" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>The wedding feature</a>
+              <a href="#timeline" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Timeline</a>
               <a href="#gallery" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Gallery</a>
               <a href="#details" className="nav-drawer-link text-white" onClick={() => setIsMenuOpen(false)}>Details</a>
               <a href="#film" className="nav-drawer-link nav-drawer-video text-white" onClick={handleVideoNavClick}>VIDEO</a>
@@ -354,6 +368,8 @@ export default function App() {
           </div>
         </section>
 
+        <WeddingTimeline />
+
         <section id="gallery" className="section-block bg-gradient-to-b from-[#f7f3f3] to-white">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8 md:mb-16">
@@ -453,16 +469,29 @@ export default function App() {
 
             <h2 className="section-title text-[#7b001c]">The Finer Details</h2>
             <p className="text-center text-[#7d5a63] mb-6 md:mb-8 text-sm md:text-base px-2">
-              Scanned program cards and the wedding color palette.
+              Dress code, colors, and wedding program details.
             </p>
 
-            <div className="palette-row mb-8">
-              {palette.map((c) => (
-                <div key={c} className="flex flex-col items-center">
-                  <div className="palette-swatch" style={{ background: c }} aria-hidden />
-                  <span className="mt-2 text-[0.65rem] sm:text-xs text-[#7d5a63]">{c}</span>
-                </div>
-              ))}
+            <div className="detail-card detail-program-card mb-8 md:mb-10">
+              <p className="detail-program-script">Dress Code</p>
+              <div className="detail-dress-block">
+                <h5 className="detail-dress-heading">PRINCIPAL SPONSORS</h5>
+                <p className="detail-program-name m-0">Gentlemen: American Suit and Slacks</p>
+                <p className="detail-program-name m-0">Ladies: Long Gown</p>
+              </div>
+              <div className="detail-dress-block mt-6">
+                <h5 className="detail-dress-heading">GUESTS</h5>
+                <p className="detail-program-name m-0">
+                  We encourage you to dress in casual attire according to our wedding colors
+                </p>
+              </div>
+              <div className="palette-row mt-8">
+                {palette.map((c) => (
+                  <div key={c} className="flex flex-col items-center">
+                    <div className="palette-swatch" style={{ background: c }} aria-hidden />
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* THE BEARERS SECTION */}
@@ -475,33 +504,33 @@ export default function App() {
                 <p className="detail-program-script">To Honor</p>
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">LOVE BEARERS</h4>
-                  <div className="detail-two-col-grid text-sm md:text-base">
+                  <div className="detail-pair-row text-sm md:text-base">
                     {bearers.loveBearers.map((name) => (
-                      <p key={name} className="m-0">{name}</p>
+                      <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
                     ))}
                   </div>
                 </div>
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">RING BEARER</h4>
-                  <p className="text-sm md:text-base">{bearers.ringBearer}</p>
+                  <p className="detail-program-name text-sm md:text-base m-0">{formatProgramName(bearers.ringBearer)}</p>
                 </div>
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">COIN BEARER</h4>
-                  <p className="text-sm md:text-base m-0">{bearers.coinBearers.join(" & ")}</p>
+                  <p className="detail-program-name text-sm md:text-base m-0">{formatProgramName(bearers.coinBearers[0])}</p>
                 </div>
 
                 <div className="mb-6 md:mb-8">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">BIBLE BEARER</h4>
-                  <p className="text-sm md:text-base m-0">{bearers.bibleBearers.join(" & ")}</p>
+                  <p className="detail-program-name text-sm md:text-base m-0">{formatProgramName(bearers.bibleBearers[0])}</p>
                 </div>
 
                 <div>
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">FLOWER GIRLS</h4>
-                  <div className="detail-two-col-grid text-sm md:text-base">
+                  <div className="detail-name-list text-sm md:text-base">
                     {bearers.flowerGirls.map((f) => (
-                      <p key={f} className="m-0">{f}</p>
+                      <p key={f} className="detail-program-name m-0">{formatProgramName(f)}</p>
                     ))}
                   </div>
                 </div>
@@ -524,22 +553,22 @@ export default function App() {
                 <div className="sponsor-grid mb-6 md:mb-8">
                   <div>
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
-                      Groom's Parents
+                      Groom&apos;s Parents
                     </h5>
                     <div className="detail-name-list text-xs md:text-sm">
                       {sponsors.groomParents.map((name) => (
-                        <p key={name} className="m-0">{name}</p>
+                        <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
                       ))}
                     </div>
                   </div>
 
                   <div>
                     <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3" style={{ fontFamily: "Great Vibes", fontSize: "20px" }}>
-                      Bride's Parents
+                      Bride&apos;s Parents
                     </h5>
                     <div className="detail-name-list text-xs md:text-sm">
                       {sponsors.brideParents.map((name) => (
-                        <p key={name} className="m-0">{name}</p>
+                        <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
                       ))}
                     </div>
                   </div>
@@ -548,10 +577,17 @@ export default function App() {
                 <div>
                   <h5 className="text-base md:text-lg font-semibold mb-2 md:mb-3">Principal Sponsors</h5>
                   <p className="text-xs md:text-sm mb-3 md:mb-4 italic">To stand as witness to our vows</p>
-                  <div className="principal-grid text-xs md:text-sm">
-                    {sponsors.principalSponsors.map((name) => (
-                      <p key={name} className="m-0">{name}</p>
-                    ))}
+                  <div className="principal-split text-xs md:text-sm">
+                    <div className="principal-col principal-col-men">
+                      {principalMen.map((name) => (
+                        <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
+                      ))}
+                    </div>
+                    <div className="principal-col principal-col-women">
+                      {principalWomen.map((name) => (
+                        <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -575,42 +611,57 @@ export default function App() {
                 </h5>
 
                 <div className="space-y-4 md:space-y-6">
-                  <div className="detail-two-col-grid detail-role-grid">
+                  <div className="detail-pair-row detail-role-grid text-xs md:text-sm">
                     <div>
                       <h6 className="text-base md:text-lg font-semibold mb-1 md:mb-2">BEST MAN</h6>
-                      <p className="text-xs md:text-sm m-0">{ceremonial.bestMan}</p>
+                      <p className="detail-program-name m-0">{formatProgramName(ceremonial.bestMan)}</p>
                     </div>
 
                     <div>
                       <h6 className="text-base md:text-lg font-semibold mb-1 md:mb-2">MAID OF HONOR</h6>
-                      <p className="text-xs md:text-sm m-0">{ceremonial.maidOfHonor}</p>
+                      <p className="detail-program-name m-0">{formatProgramName(ceremonial.maidOfHonor)}</p>
                     </div>
                   </div>
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-2 md:mb-3">TO LIGHT OUR PATH</h6>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
-                      {ceremonial.toLightOurPath.map((p) => (
-                        <p key={p.name} className="m-0">{p.name} &amp; {p.spouse}</p>
-                      ))}
-                    </div>
+                    {ceremonial.toLightOurPath.map((p) => (
+                      <div key={p.name} className="detail-pair-row text-xs md:text-sm">
+                        <p className="detail-program-name m-0">{formatProgramName(p.name)}</p>
+                        <p className="detail-program-name m-0">{formatProgramName(p.spouse)}</p>
+                      </div>
+                    ))}
                   </div>
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-2 md:mb-3">TO CLOTHE AS ONE</h6>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
-                      {ceremonial.toClotheAsOne.map((p) => (
-                        <p key={p.name} className="m-0">{p.name}</p>
-                      ))}
+                    <div className="detail-pair-row text-xs md:text-sm">
+                      <div className="detail-name-list">
+                        {clotheColumns[0].map((p) => (
+                          <p key={p.name} className="detail-program-name m-0">{formatProgramName(p.name)}</p>
+                        ))}
+                      </div>
+                      <div className="detail-name-list">
+                        {clotheColumns[1].map((p) => (
+                          <p key={p.name} className="detail-program-name m-0">{formatProgramName(p.name)}</p>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
                   <div>
                     <h6 className="text-base md:text-lg font-semibold mb-2 md:mb-3">TO BIND US TOGETHER</h6>
-                    <div className="detail-two-col-grid text-xs md:text-sm">
-                      {ceremonial.toBindUsTogether.map((p) => (
-                        <p key={p.name} className="m-0">{p.name}</p>
-                      ))}
+                    <div className="detail-pair-row text-xs md:text-sm">
+                      <div className="detail-name-list">
+                        {bindColumns[0].map((p) => (
+                          <p key={p.name} className="detail-program-name m-0">{formatProgramName(p.name)}</p>
+                        ))}
+                      </div>
+                      <div className="detail-name-list">
+                        {bindColumns[1].map((p) => (
+                          <p key={p.name} className="detail-program-name m-0">{formatProgramName(p.name)}</p>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -639,7 +690,7 @@ export default function App() {
                     <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">GROOM&apos;S MEN</h6>
                     <div className="detail-name-list text-xs md:text-sm">
                       {entourage.groomsMen.map((n) => (
-                        <p key={n} className="m-0">{n}</p>
+                        <p key={n} className="detail-program-name m-0">{formatProgramName(n)}</p>
                       ))}
                     </div>
                   </div>
@@ -648,7 +699,7 @@ export default function App() {
                     <h6 className="text-base md:text-lg font-semibold mb-3 md:mb-4">BRIDE&apos;S MAIDS</h6>
                     <div className="detail-name-list text-xs md:text-sm">
                       {entourage.bridesMaids.map((n) => (
-                        <p key={n} className="m-0">{n}</p>
+                        <p key={n} className="detail-program-name m-0">{formatProgramName(n)}</p>
                       ))}
                     </div>
                   </div>
@@ -669,7 +720,7 @@ export default function App() {
               <p className="text-xs md:text-sm mb-2 md:mb-3">Please share your photos using our official hashtag</p>
               <div className="hashtag-box floral-hashtag-box text-[#7b001c] rounded-lg">
                 <p className="hashtag-text m-0">
-                  #creaTINewchapterwithTATIN
+                  #CREATINEWCHAPTERWITHTATIN
                 </p>
               </div>
             </div>
