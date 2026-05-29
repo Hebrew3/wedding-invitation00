@@ -7,6 +7,7 @@ import FloatingHearts from "./FloatingHearts";
 import WeddingTimeline from "./WeddingTimeline";
 import {
   formatProgramName,
+  pairNamesIntoRows,
   partitionPrincipalSponsors,
 } from "./formatProgramName";
 import "./App.css";
@@ -500,10 +501,12 @@ export default function App() {
 
                 <div className="mb-6 md:mb-8 text-center">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">LOVE BEARERS</h4>
-                  <div className="love-bearers-row text-sm md:text-base">
-                    {bearers.loveBearers.map((name) => (
-                      <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
-                    ))}
+                  <div className="names-pair-rows text-sm md:text-base">
+                    <div className="names-pair-row">
+                      {bearers.loveBearers.map((name) => (
+                        <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -524,9 +527,16 @@ export default function App() {
 
                 <div className="text-center">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">FLOWER GIRLS</h4>
-                  <div className="detail-name-list detail-name-list-center text-sm md:text-base">
-                    {bearers.flowerGirls.map((f) => (
-                      <p key={f} className="detail-program-name m-0">{formatProgramName(f)}</p>
+                  <div className="names-pair-rows flower-girls-rows text-sm md:text-base">
+                    {pairNamesIntoRows(bearers.flowerGirls).map((row) => (
+                      <div
+                        key={row.map((n) => n).join("-")}
+                        className={`names-pair-row${row.length === 1 ? " names-pair-row-solo" : ""}`}
+                      >
+                        {row.map((name) => (
+                          <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 </div>
