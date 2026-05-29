@@ -14,15 +14,6 @@ export function formatProgramName(name) {
   return `${prefix} ${match[2].toUpperCase()}`;
 }
 
-/** Group names into rows of N (e.g. 2 names per line). */
-export function pairNamesIntoRows(names, perRow = 2) {
-  const rows = [];
-  for (let i = 0; i < names.length; i += perRow) {
-    rows.push(names.slice(i, i + perRow));
-  }
-  return rows;
-}
-
 export function partitionPrincipalSponsors(names) {
   const men = [];
   const women = [];
