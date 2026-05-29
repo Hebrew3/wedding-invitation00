@@ -503,7 +503,7 @@ export default function App() {
                 The Bearers
               </h3>
               
-              <div className="detail-card detail-program-card">
+              <div className="detail-card detail-program-card detail-program-card-no-arch">
                 <div className="program-card-intro">
                   <p className="detail-program-script">To Honor</p>
                   <h4 className="program-card-family">DIMAISIP - APAS</h4>
