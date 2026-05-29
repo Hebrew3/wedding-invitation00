@@ -590,9 +590,10 @@
 .principal-split {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(0.75rem, 5vw, 2rem);
+  column-gap: clamp(0.5rem, 3.5vw, 1.5rem);
   align-items: start;
-  max-width: 26rem;
+  width: 100%;
+  max-width: min(100%, 34rem);
   margin: 0 auto;
 }
 
@@ -622,7 +623,8 @@
 }
 
 .detail-pair-row .detail-program-name,
-.detail-role-grid .detail-program-name {
+.detail-role-grid .detail-program-name,
+.ceremony-pair-row .detail-program-name {
   white-space: nowrap;
   overflow-wrap: normal;
   word-break: keep-all;
@@ -750,8 +752,7 @@
 
 .detail-two-col-grid p,
 .principal-col p,
-.detail-name-list p,
-.ceremony-pair-row .detail-program-name {
+.detail-name-list p {
   margin: 0;
   line-height: 1.4;
   word-break: normal;
@@ -760,7 +761,20 @@
   font-size: clamp(0.68rem, 2.7vw, 0.875rem);
 }
 
+.ceremony-pair-row .detail-program-name {
+  margin: 0;
+  line-height: 1.4;
+  font-size: clamp(0.68rem, 2.7vw, 0.875rem);
+}
+
 .detail-name-list.detail-name-list-center .detail-program-name {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+}
+
+.principal-col .detail-program-name {
   white-space: nowrap;
   overflow-wrap: normal;
   word-break: keep-all;
@@ -786,7 +800,8 @@
   .detail-two-col-grid p,
   .principal-col p,
   .detail-name-list p,
-  .ceremony-pair-row .detail-program-name {
+  .ceremony-pair-row .detail-program-name,
+  .principal-col .detail-program-name {
     font-size: inherit;
   }
 }
