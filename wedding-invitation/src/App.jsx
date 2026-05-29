@@ -500,7 +500,7 @@ export default function App() {
 
                 <div className="mb-6 md:mb-8 text-center">
                   <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3">LOVE BEARERS</h4>
-                  <div className="detail-pair-row text-sm md:text-base">
+                  <div className="love-bearers-row text-sm md:text-base">
                     {bearers.loveBearers.map((name) => (
                       <p key={name} className="detail-program-name m-0">{formatProgramName(name)}</p>
                     ))}
