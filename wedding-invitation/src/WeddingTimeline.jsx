@@ -1,10 +1,10 @@
 import "./WeddingTimeline.css";
 
 const TIMELINE_EVENTS = [
-  { time: "8:30 AM", title: "Entourage line up at the church" },
-  { time: "9:00 AM", title: "Wedding Ceremony" },
-  { time: "10:00 AM", title: "Church Photo Session / Post Nuptial" },
-  { time: "11:00 AM", title: "Reception's Activities" },
+  { time: "7:30 AM", title: "Entourage line up at the church" },
+  { time: "8:00 AM", title: "Wedding Ceremony" },
+  { time: "9:00 AM", title: "Church Photo Session / Post Nuptial" },
+  { time: "10:00 AM", title: "Reception's Activities" },
 ];
 
 export default function WeddingTimeline() {
